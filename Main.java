@@ -2,8 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException
-  {
+  public static void main(String[] args) throws IOException {
     File wbank=new File("words.csv");
     ArrayList<String> words=new ArrayList<String>();
     try (Scanner scan=new Scanner(wbank)) {
@@ -11,25 +10,37 @@ public class Main {
         words.add(scan.nextLine());
       }
     }
-    
     try (Scanner scan=new Scanner(System.in)) {
-      System.out.println("Press Enter to begin the test!!");
-      String cond=scan.nextLine();
-      if (!cond.equals("")) {
-        System.exit(0);
-      }
+      String cond="Yes";
+      while(cond.equals("Yes")) {
+
+        System.out.print("Enter your name: ");
+        String name=scan.nextLine();
+        System.out.println("Press Enter to begin the test!!");
+        cond=scan.nextLine();
+        if (!cond.equals("")) {
+          System.exit(0);
+        }
     
-      String type="";
-      for(int i=0;i<50;i++) {
-        int ind=(int)(Math.random()*words.size());
-        type+=words.get(ind)+" ";
+        String type="";
+        for(int i=0;i<50;i++) {
+          int ind=(int)(Math.random()*words.size());
+          type+=words.get(ind)+" ";
+        }
+        type=type.trim();
+        System.out.println("Begin!!\n"+type);
+        ElapsedTime.start();
+
+        String answer=scan.nextLine();
+        int elapsed=(int) ElapsedTime.end().getSeconds();
+        AccuracyScorer.Result result = AccuracyScorer.compare(type, answer, elapsed);
+        Leaderboard.add(name, elapsed, result.accuracy, result.score);
+        System.out.println("Do you want to play again?: Yes or No");
+        cond=scan.nextLine();
+        System.out.println(type+": "+type.length());
+        System.out.println(answer+": "+answer.length());
       }
-      ElapsedTime.start();
-      System.out.println("Begin!!\n"+type);
-
-      String answer=scan.nextLine();
-
-    System.out.println(ElapsedTime.end().getSeconds());
+      Leaderboard.print();
     }
   }
 }
