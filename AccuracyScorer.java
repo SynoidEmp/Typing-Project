@@ -33,7 +33,6 @@ public class AccuracyScorer {
         if (!(typed.length()==0)) {
             accuracy = (double) correct / target.length();
         }
-        System.out.println(correct+"/"+target.length()+"="+accuracy);
         int score = (int) Math.max(0.0,((600.0 - timeSeconds) * accuracy));
         accuracy=accuracy*100;
         return new Result(correct, target.length(), accuracy, score);
