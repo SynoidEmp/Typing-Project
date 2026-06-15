@@ -37,8 +37,6 @@ public class Main {
         Leaderboard.add(name, elapsed, result.accuracy, result.score);
         System.out.println("Do you want to play again?: Yes or No");
         cond=scan.nextLine();
-        System.out.println(type+": "+type.length());
-        System.out.println(answer+": "+answer.length());
       }
       Leaderboard.print();
     }
